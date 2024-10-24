@@ -1,0 +1,2 @@
+CREATE DATABASE IF NOT EXISTS job_service;
+CREATE DATABASE IF NOT EXISTS application_service;
