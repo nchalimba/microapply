@@ -16,5 +16,8 @@ public record ApplicationDto(
         LocalDateTime applicationDate,
         String resumeUrl,
         String coverLetterUrl,
-        String notes) {
+        String notes,
+        @NotBlank(message = "Email cannot be empty")
+        String email
+) {
 }

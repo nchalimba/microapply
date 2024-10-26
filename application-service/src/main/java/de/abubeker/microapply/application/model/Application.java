@@ -28,4 +28,6 @@ public class Application {
     private String coverLetterUrl;
     private String notes;
     private String internalNotes; // comments made by recruiters
+    @Column(nullable = false)
+    private String email;
 }

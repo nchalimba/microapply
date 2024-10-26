@@ -1,5 +1,6 @@
 version: '4'
 services:
+  # Database
   mysql:
     image: mysql:8.4.2
     container_name: microapply-mysql
@@ -10,7 +11,6 @@ services:
     volumes:
       - ./mysql:/var/lib/mysql
       - ./docker/mysql/init.sql:/docker-entrypoint-initdb.d/init.sql # inits when container starts
-
   phpMyAdmin:
     depends_on:
       - mysql
@@ -21,7 +21,7 @@ services:
     environment:
       PMA_HOST: mysql
       MYSQL_ROOT_PASSWORD: mysql
-
+  # Auth
   keycloak-mysql:
     container_name: keycloak-mysql
     image: mysql:8
@@ -50,3 +50,14 @@ services:
       - ./docker/keycloak/realms/:/opt/keycloak/data/import/
     depends_on:
       - keycloak-mysql
+  # Message broker
+  rabbitmq:
+    container_name: rabbitmq
+    image: rabbitmq:3-management
+    ports:
+      - "5672:5672"  # RabbitMQ default port
+      - "15672:15672"  # RabbitMQ management plugin port
+    environment:
+      RABBITMQ_DEFAULT_USER: admin
+      RABBITMQ_DEFAULT_PASS: admin
+  # Email
