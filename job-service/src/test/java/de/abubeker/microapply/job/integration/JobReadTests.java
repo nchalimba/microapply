@@ -5,7 +5,6 @@ import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import static org.hamcrest.Matchers.*;
 
@@ -13,12 +12,13 @@ import static org.hamcrest.Matchers.*;
 public class JobReadTests extends BaseIntegrationTest{
     @Autowired
     private TestDataUtil testDataUtil;
+    private Long firstId;
 
     @BeforeEach
     void setup() {
         super.setup();
         testDataUtil.deleteJobData();
-        testDataUtil.insertJobData();
+        firstId = testDataUtil.insertJobData().getFirst().getId();
     }
 
     @Test
@@ -37,10 +37,10 @@ public class JobReadTests extends BaseIntegrationTest{
     void shouldReturnJobById() {
         RestAssured
                 .when()
-                .get("/api/job/1") // Assuming job with ID 1 exists in your test data
+                .get("/api/job/" + firstId) // Assuming job with ID 1 exists in your test data
                 .then()
                 .statusCode(200)
-                .body("id", is(1)) // Assert the ID
+                .body("id", is(firstId.intValue())) // Assert the ID
                 .body("title", is("Developer")) // Assert the title
                 .body("description", is("Backend Developer")) // Assert the description
                 .body("company", is("Tech Corp")) // Assert the company

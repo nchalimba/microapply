@@ -1,6 +1,7 @@
 package de.abubeker.microapply.job.controller;
 
 import de.abubeker.microapply.job.dto.JobDto;
+import de.abubeker.microapply.job.dto.ValidationResponseDto;
 import de.abubeker.microapply.job.service.JobService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -44,8 +45,8 @@ public class JobController {
         return ResponseEntity.noContent().build();
     }
 
-    @GetMapping("/job/{id}/validate")
-    public ResponseEntity<Boolean> validateJob(@PathVariable Long id) {
+    @GetMapping("/{id}/validate")
+    public ResponseEntity<ValidationResponseDto> validateJob(@PathVariable Long id) {
         return ResponseEntity.ok(jobService.validateJob(id));
     }
 }

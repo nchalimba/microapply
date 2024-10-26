@@ -25,7 +25,7 @@ public class JobUpdateTests extends BaseIntegrationTest {
     @Test
     void shouldUpdateJobSuccessfully() {
         // Job update request body
-        String requestBody = "{ \"title\": \"Senior Developer\", \"description\": \"Lead Backend Developer\", \"company\": \"Tech Corp\", \"location\": \"Berlin\" }";
+        String requestBody = "{ \"title\": \"Senior Developer\", \"description\": \"Lead Backend Developer\", \"company\": \"Tech Corp\", \"location\": \"Berlin\", \"status\": \"OPEN\" }";
 
         RestAssured
                 .given()
@@ -45,7 +45,7 @@ public class JobUpdateTests extends BaseIntegrationTest {
     @Test
     void shouldReturn404ForNonExistentJobId() {
         // Job update request for a non-existent job ID
-        String requestBody = "{ \"title\": \"Senior Developer\", \"description\": \"Lead Backend Developer\", \"company\": \"Tech Corp\", \"location\": \"Berlin\" }";
+        String requestBody = "{ \"title\": \"Senior Developer\", \"description\": \"Lead Backend Developer\", \"company\": \"Tech Corp\", \"location\": \"Berlin\", \"status\": \"OPEN\" }";
 
         RestAssured
                 .given()
@@ -61,7 +61,7 @@ public class JobUpdateTests extends BaseIntegrationTest {
     @Test
     void shouldReturn400ForInvalidJobData() {
         // Invalid job update request (missing title)
-        String requestBody = "{ \"description\": \"Lead Backend Developer\", \"company\": \"Tech Corp\", \"location\": \"Berlin\" }";
+        String requestBody = "{ \"description\": \"Lead Backend Developer\", \"company\": \"Tech Corp\", \"location\": \"Berlin\", \"status\": \"OPEN\" }";
 
         RestAssured
                 .given()

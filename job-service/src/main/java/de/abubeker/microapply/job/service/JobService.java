@@ -2,6 +2,7 @@ package de.abubeker.microapply.job.service;
 
 import de.abubeker.microapply.common.exception.NotFoundException;
 import de.abubeker.microapply.job.dto.JobDto;
+import de.abubeker.microapply.job.dto.ValidationResponseDto;
 import de.abubeker.microapply.job.mapper.JobMapper;
 import de.abubeker.microapply.job.model.Job;
 import de.abubeker.microapply.job.repository.JobRepository;
@@ -55,11 +56,9 @@ public class JobService {
                .orElseThrow(() -> new NotFoundException("Job with id " + id + " not found"));
     }
 
-    public Boolean validateJob(Long id) {
-        // check if job exists
-        // check if job is open
+    public ValidationResponseDto validateJob(Long id) {
         return jobRepository.findById(id)
-                .map(job -> job.getStatus().equals("OPEN"))
-                .orElse(false);
+                .map(job -> new ValidationResponseDto(job.getStatus().equals("OPEN")))
+                .orElse(new ValidationResponseDto(false));
     }
 }

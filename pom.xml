@@ -19,7 +19,8 @@
         <module>application-service</module>
 		<module>common</module>
 		<module>api-gateway</module>
-	</modules>
+        <module>notification-service</module>
+    </modules>
 
 	<properties>
 		<java.version>21</java.version>

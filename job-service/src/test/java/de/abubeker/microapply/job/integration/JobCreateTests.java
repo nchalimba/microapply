@@ -24,7 +24,7 @@ public class JobCreateTests extends BaseIntegrationTest {
     @Test
     void shouldCreateJobSuccessfully() {
         // Job creation request body
-        String requestBody = "{ \"title\": \"Developer\", \"description\": \"Backend Developer\", \"company\": \"Tech Corp\", \"location\": \"Berlin\" }";
+        String requestBody = "{ \"title\": \"Developer\", \"description\": \"Backend Developer\", \"company\": \"Tech Corp\", \"location\": \"Berlin\", \"status\": \"OPEN\" }";
 
         RestAssured
                 .given()
@@ -43,7 +43,7 @@ public class JobCreateTests extends BaseIntegrationTest {
     @Test
     void shouldReturn400ForInvalidJobData() {
         // Invalid job creation request (title is missing)
-        String requestBody = "{ \"description\": \"Backend Developer\", \"company\": \"Tech Corp\", \"location\": \"Berlin\" }";
+        String requestBody = "{ \"description\": \"Backend Developer\", \"company\": \"Tech Corp\", \"location\": \"Berlin\", \"status\": \"OPEN\" }";
 
         RestAssured
                 .given()
@@ -53,7 +53,7 @@ public class JobCreateTests extends BaseIntegrationTest {
                 .post("/api/job")
                 .then()
                 .statusCode(400) // Assert that the response status is 400 Bad Request
-                .body("message", containsString("title: Title cannot be empty")); // Assert error message (adjust according to your error response structure)
+                .body("message", containsString("title: Title cannot be empty"));
     }
 
     @Test

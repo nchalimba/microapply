@@ -19,6 +19,12 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(HttpStatus.NOT_FOUND).body(responseDto);
     }
 
+    @ExceptionHandler(BadRequestException.class)
+    public ResponseEntity<ExceptionDto> handleBadRequestException(BadRequestException e, WebRequest request) {
+        ExceptionDto responseDto = new ExceptionDto(HttpStatus.BAD_REQUEST.value(), e.getMessage(), LocalDateTime.now());
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(responseDto);
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ExceptionDto> handleValidationExceptions(MethodArgumentNotValidException ex) {
         String errorMessage = ex.getBindingResult().getFieldErrors().stream()
