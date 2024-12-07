@@ -21,44 +21,40 @@ public class JobDeleteTests extends BaseIntegrationTest{
     @BeforeEach
     void setup() {
         super.setup();
-        testDataUtil.deleteJobData(); // Clean up existing job data
+        testDataUtil.deleteJobData();
         jobIds = testDataUtil.insertJobData().stream().map(Job::getId).toList();
 
     }
 
     @Test
     void shouldDeleteJobById() {
-        // First, ensure that the job exists before deletion
         RestAssured
                 .when()
                 .get("/api/job/" + jobIds.getFirst()) // Assuming job with ID 1 exists
                 .then()
                 .statusCode(200);
 
-        // Now, delete the job
         RestAssured
                 .when()
                 .delete("/api/job/" + jobIds.getFirst()) // Deleting job with ID 1
                 .then()
-                .statusCode(204); // Assert that the response status is 204 No Content
+                .statusCode(204);
 
-        // Verify that the job is deleted by trying to retrieve it
         RestAssured
                 .when()
                 .get("/api/job/" + jobIds.getFirst()) // Trying to get the deleted job
                 .then()
-                .statusCode(404) // Assert that the response status is 404
-                .body("message", containsString("Job with id " + jobIds.getFirst() + " not found")); // Assert error message
+                .statusCode(404)
+                .body("message", containsString("Job with id " + jobIds.getFirst() + " not found"));
     }
 
     @Test
     void shouldReturn404ForNonExistentJobIdOnDelete() {
-        // Attempt to delete a non-existent job
         RestAssured
                 .when()
                 .delete("/api/job/9999") // Assuming 9999 does not exist
                 .then()
-                .statusCode(404) // Assert that the response status is 404
-                .body("message", containsString("Job with id 9999 not found")); // Assert error message
+                .statusCode(404)
+                .body("message", containsString("Job with id 9999 not found"));
     }
 }

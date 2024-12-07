@@ -14,12 +14,12 @@ public interface JobClient {
     Logger log = LoggerFactory.getLogger(JobClient.class);
 
     @GetExchange("/api/job/{id}/validate")
-    @CircuitBreaker(name = "job", fallbackMethod = "fallbackMethod")
-    @Retry(name = "job")
+    //@CircuitBreaker(name = "job", fallbackMethod = "fallbackMethod")
+//    @Retry(name = "job")
     JobValidationResponseDto isJobAvailable(@PathVariable Long id);
 
-    default boolean fallbackMethod(Long id, Throwable throwable) {
+    default JobValidationResponseDto fallbackMethod(Long id, Throwable throwable) {
         log.info("Cannot get job with id {}, failure reason: {}", id, throwable.getMessage());
-        return false;
+        return new JobValidationResponseDto(false);
     }
 }

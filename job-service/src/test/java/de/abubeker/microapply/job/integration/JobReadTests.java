@@ -29,22 +29,22 @@ public class JobReadTests extends BaseIntegrationTest{
                 .then()
                 .statusCode(200)
                 .body("size()", is(2)) // Assuming 2 jobs are inserted
-                .body("[0].title", is("Developer")) // Assert properties of the first job
-                .body("[1].title", is("Analyst")); // Assert properties of the second job
+                .body("[0].title", is("Developer"))
+                .body("[1].title", is("Analyst"));
     }
 
     @Test
     void shouldReturnJobById() {
         RestAssured
                 .when()
-                .get("/api/job/" + firstId) // Assuming job with ID 1 exists in your test data
+                .get("/api/job/" + firstId) // Assuming job with ID 1 exists in test data
                 .then()
                 .statusCode(200)
-                .body("id", is(firstId.intValue())) // Assert the ID
-                .body("title", is("Developer")) // Assert the title
-                .body("description", is("Backend Developer")) // Assert the description
-                .body("company", is("Tech Corp")) // Assert the company
-                .body("location", is("Berlin")); // Assert the location
+                .body("id", is(firstId.intValue()))
+                .body("title", is("Developer"))
+                .body("description", is("Backend Developer"))
+                .body("company", is("Tech Corp"))
+                .body("location", is("Berlin"));
     }
 
     @Test
@@ -53,7 +53,7 @@ public class JobReadTests extends BaseIntegrationTest{
                 .when()
                 .get("/api/job/9999") // Assuming 9999 does not exist
                 .then()
-                .statusCode(404) // Assert that the response status is 404
-                .body("message", containsString("Job with id 9999 not found")); // Assert error message (make sure to adjust according to your actual error response structure)
+                .statusCode(404)
+                .body("message", containsString("Job with id 9999 not found"));
     }
 }

@@ -24,7 +24,6 @@ public class JobUpdateTests extends BaseIntegrationTest {
 
     @Test
     void shouldUpdateJobSuccessfully() {
-        // Job update request body
         String requestBody = "{ \"title\": \"Senior Developer\", \"description\": \"Lead Backend Developer\", \"company\": \"Tech Corp\", \"location\": \"Berlin\", \"status\": \"OPEN\" }";
 
         RestAssured
@@ -32,19 +31,18 @@ public class JobUpdateTests extends BaseIntegrationTest {
                 .contentType("application/json")
                 .body(requestBody)
                 .when()
-                .put("/api/job/" + firstId) // API endpoint for updating a job with ID 1
+                .put("/api/job/" + firstId)
                 .then()
-                .statusCode(200) // Assert that the response status is 200 OK
-                .body("id", is(firstId.intValue())) // Assert the ID remains the same
-                .body("title", is("Senior Developer")) // Assert the updated title
-                .body("description", is("Lead Backend Developer")) // Assert the updated description
-                .body("company", is("Tech Corp")) // Assert the company remains the same
-                .body("location", is("Berlin")); // Assert the location remains the same
+                .statusCode(200)
+                .body("id", is(firstId.intValue()))
+                .body("title", is("Senior Developer"))
+                .body("description", is("Lead Backend Developer"))
+                .body("company", is("Tech Corp"))
+                .body("location", is("Berlin"));
     }
 
     @Test
     void shouldReturn404ForNonExistentJobId() {
-        // Job update request for a non-existent job ID
         String requestBody = "{ \"title\": \"Senior Developer\", \"description\": \"Lead Backend Developer\", \"company\": \"Tech Corp\", \"location\": \"Berlin\", \"status\": \"OPEN\" }";
 
         RestAssured
@@ -54,13 +52,12 @@ public class JobUpdateTests extends BaseIntegrationTest {
                 .when()
                 .put("/api/job/9999") // Assuming job ID 9999 does not exist
                 .then()
-                .statusCode(404) // Assert that the response status is 404 Not Found
-                .body("message", containsString("Job with id 9999 not found")); // Assert error message
+                .statusCode(404)
+                .body("message", containsString("Job with id 9999 not found"));
     }
 
     @Test
     void shouldReturn400ForInvalidJobData() {
-        // Invalid job update request (missing title)
         String requestBody = "{ \"description\": \"Lead Backend Developer\", \"company\": \"Tech Corp\", \"location\": \"Berlin\", \"status\": \"OPEN\" }";
 
         RestAssured
@@ -68,9 +65,9 @@ public class JobUpdateTests extends BaseIntegrationTest {
                 .contentType("application/json")
                 .body(requestBody)
                 .when()
-                .put("/api/job/1") // Update job with ID 1
+                .put("/api/job/1")
                 .then()
-                .statusCode(400) // Assert that the response status is 400 Bad Request
-                .body("message", containsString("title: Title cannot be empty")); // Assert error message
+                .statusCode(400)
+                .body("message", containsString("title: Title cannot be empty"));
     }
 }

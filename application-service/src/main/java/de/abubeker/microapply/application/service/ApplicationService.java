@@ -79,7 +79,9 @@ public class ApplicationService {
         ApplicationCreatedDto message = new ApplicationCreatedDto(
                 applicationDto.id(),
                 applicationDto.applicationDate(),
-                applicationDto.email()
+                applicationDto.email(),
+                applicationDto.firstName(),
+                applicationDto.lastName()
         );
 
         rabbitTemplate.convertAndSend(RabbitMQConfig.EXCHANGE_NAME, RabbitMQConfig.ROUTING_KEY, message);

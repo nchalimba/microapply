@@ -14,10 +14,17 @@ public record ApplicationDto(
         @NotBlank(message = "Status cannot be empty")
         String status,
         LocalDateTime applicationDate,
+        @NotBlank(message = "Resume URL cannot be empty")
         String resumeUrl,
         String coverLetterUrl,
         String notes,
         @NotBlank(message = "Email cannot be empty")
-        String email
+        String email,
+        @NotBlank(message = "First name cannot be empty")
+        String firstName,
+        @NotBlank(message = "Last name cannot be empty")
+        String lastName,
+        @NotBlank(message = "Phone number cannot be empty")
+        String phoneNumber
 ) {
 }
