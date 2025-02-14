@@ -35,4 +35,5 @@ build/
 ### Docker ###
 mysql/
 /volume-data/
+/data/
 !docker/mysql
