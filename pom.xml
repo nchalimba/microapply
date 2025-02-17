@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>de.abubeker</groupId>
 	<artifactId>microapply</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>1.0.0</version>
 	<packaging>pom</packaging>
 	<name>microapply</name>
 	<description>MicroApply is a demo job application platform built with Spring Boot microservices, enabling users to apply for jobs efficiently.</description>
